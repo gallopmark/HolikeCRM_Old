@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_while"
+    android:orientation="vertical"
+    tools:context="com.holike.crm.activity.main.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/fl_main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <View style="@style/divider_horizontal" />
+
+    <com.holike.crm.customView.MainTableLayout
+        android:id="@+id/tab_main"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_49" />
+
+</LinearLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.holike.crm.activity.main.PhotoViewActivity">
+
+    <com.holike.crm.customView.PhotoViewPager
+        android:id="@+id/view_pager_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000" />
+
+    <TextView
+        android:id="@+id/tv_image_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:textSize="@dimen/textSize_16"
+        android:textColor="@color/color_while"
+        android:layout_marginBottom="@dimen/dp_20" />
+</FrameLayout>
