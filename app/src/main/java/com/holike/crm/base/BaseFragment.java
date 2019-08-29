@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -268,7 +270,15 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
      * 没有网络
      */
     public void noNetwork() {
-        noData(R.drawable.no_network, R.string.tips_nonetwork, true);
+        noNetwork(null);
+    }
+
+    public void noNetwork(String failReason) {
+        if (TextUtils.isEmpty(failReason)) {
+            noData(R.drawable.no_network, R.string.tips_nonetwork, true);
+        } else {
+            noData(R.drawable.no_network, failReason, true);
+        }
     }
 
     /*是否是无权限*/

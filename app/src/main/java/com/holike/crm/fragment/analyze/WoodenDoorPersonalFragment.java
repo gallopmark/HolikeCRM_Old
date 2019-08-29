@@ -37,6 +37,8 @@ import butterknife.BindView;
  * Copyright holike possess 2019.
  */
 public class WoodenDoorPersonalFragment extends MyFragment<WoodenDoorPresenter, WoodenDoorView> implements WoodenDoorView {
+    @BindView(R.id.ll_content_layout)
+    LinearLayout mContentLayout;
     @BindView(R.id.sliding_tab_layout)
     SlidingTabLayout mTabLayout;
     @BindView(R.id.tv_date)
@@ -91,6 +93,9 @@ public class WoodenDoorPersonalFragment extends MyFragment<WoodenDoorPresenter, 
     @Override
     public void onSuccess(WoodenDoorBean bean) {
         dismissLoading();
+        if (mContentLayout.getVisibility() != View.VISIBLE) {
+            mContentLayout.setVisibility(View.VISIBLE);
+        }
         initTab(bean.getSelectData());
         mDateTextView.setText(bean.timeData);
         setAdapter(bean.getPercentData());
@@ -105,8 +110,7 @@ public class WoodenDoorPersonalFragment extends MyFragment<WoodenDoorPresenter, 
             for (WoodenDoorBean.SelectDataBean bean : selectDataBeans) {
                 mTabTitles.add(bean.name);
             }
-            mViewpager.setAdapter(obtain(mTabTitles.size()));
-//            PerformancePresenter.setTabWidth(tabType, mTabTitles.size());
+//            mViewpager.setAdapter(obtain(mTabTitles.size()));
             mTabLayout.setupViewPager(mViewpager, mTabTitles.toArray(new String[0]));
             mTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
                 @Override
@@ -191,6 +195,12 @@ public class WoodenDoorPersonalFragment extends MyFragment<WoodenDoorPresenter, 
     @Override
     public void onFailure(String failReason) {
         dismissLoading();
-        showShortToast(failReason);
+        mContentLayout.setVisibility(View.GONE);
+        noNetwork(failReason);
+    }
+
+    @Override
+    protected void reload() {
+        getData();
     }
 }

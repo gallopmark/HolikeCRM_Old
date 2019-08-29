@@ -2,8 +2,10 @@ package com.holike.crm.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +53,7 @@ public class TipViewDialog extends Dialog {
                 }
             });
             getWindow().setContentView(contentView);
-            int width = DensityUtil.getScreenWidth(getContext()) - DensityUtil.dp2px(getContext().getResources().getDimension(R.dimen.dialog_margin));
+            int width = DensityUtil.getScreenWidth(getContext()) - getContext().getResources().getDimensionPixelSize(R.dimen.dp_48) * 2;
             getWindow().setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT);
             getWindow().setBackgroundDrawableResource(R.drawable.bg_corners_white_5dp);
             getWindow().setGravity(Gravity.CENTER);

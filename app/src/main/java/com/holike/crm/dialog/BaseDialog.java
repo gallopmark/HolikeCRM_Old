@@ -44,7 +44,7 @@ public abstract class BaseDialog extends Dialog {
             if (isFullScreen()) {
                 getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
             } else {
-                int width = (DensityUtil.getScreenWidth(mContext) - DensityUtil.dp2px(mContext.getResources().getDimension(R.dimen.dialog_margin)));
+                int width = (DensityUtil.getScreenWidth(mContext) - getContext().getResources().getDimensionPixelSize(R.dimen.dp_48) * 2);
                 getWindow().setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT);
             }
         }
