@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -9,11 +10,33 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <FrameLayout
+    <com.xcode.general.YouthToolbar
+        android:id="@+id/app_toolbar"
+        style="@style/AppToolBarStyle"
+        android:background="@color/bg_transparent"
+        app:navigationIcon="@drawable/ic_back_left_white_24dp"
+        app:titleTextAppearance="@style/AppToolbarTitleTextStyle2">
+
+        <TextView
+            android:id="@+id/tv_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="?attr/actionBarItemBackground"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12"
+            android:textColor="@color/color_while"
+            android:textSize="@dimen/textSize_14"
+            android:textStyle="bold" />
+    </com.xcode.general.YouthToolbar>
+
+   <!-- <FrameLayout
         android:id="@+id/fl_fragment_title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_44"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_title"
@@ -32,7 +55,7 @@
 
         <LinearLayout
             android:id="@+id/ll_back"
-            android:layout_width="@dimen/dp_40"
+            android:layout_width="@dimen/dp_50"
             android:layout_height="match_parent"
             android:layout_gravity="center|start"
             android:gravity="center"
@@ -43,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/icon_back"
+                android:src="@drawable/ic_back_default"
                 android:tint="@color/color_while" />
 
             <TextView
@@ -77,6 +100,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:layout_marginRight="@dimen/dp_12" />
-    </FrameLayout>
+    </FrameLayout>-->
 
 </LinearLayout>

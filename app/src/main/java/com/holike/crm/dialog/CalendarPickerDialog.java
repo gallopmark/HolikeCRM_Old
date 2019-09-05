@@ -32,7 +32,6 @@ public class CalendarPickerDialog extends Dialog {
     private CharSequence left, right;
     private boolean clickToClear;
     private OnCalendarRangeSelectedListener onCalendarRangeSelectedListener;
-    private AppToastCompat mToastCompat;
 
     private CalendarPickerDialog(Builder builder) {
         super(builder.context, R.style.Dialog);
@@ -117,7 +116,7 @@ public class CalendarPickerDialog extends Dialog {
 //                            if (mStickyView.getVisibility() != View.VISIBLE) {
 //                                mStickyView.setVisibility(View.VISIBLE);
 //                            }
-//                            mStickyView.setText(calendarView.getMonths().get(firstVisibleItem).getLabel());
+//                            mStickyView.setText(calendarView.getMonths().getInstance(firstVisibleItem).getLabel());
 //                        }
 //                    } else {
 //                        if (mStickyView.getVisibility() != View.GONE)
@@ -191,17 +190,12 @@ public class CalendarPickerDialog extends Dialog {
         }
     }
 
-    private void cancelToast() {
-        if (mToastCompat != null) {
-            mToastCompat.cancel();
-        }
-    }
-
     private void showShortToast(CharSequence text) {
         if (TextUtils.isEmpty(text)) return;
-        cancelToast();
-        mToastCompat = AppToastCompat.makeText(getContext(),Toast.LENGTH_SHORT);
-        mToastCompat.show(text);
+        AppToastCompat.from(getContext())
+                .with(text)
+                .setDuration(Toast.LENGTH_SHORT)
+                .show();
     }
 
     public static class Builder {

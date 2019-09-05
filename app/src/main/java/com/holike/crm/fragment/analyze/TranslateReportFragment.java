@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -162,7 +163,7 @@ public class TranslateReportFragment extends MyFragment<TranslateReportPresenter
     private List<Date> mSelectedDates;
 
     @Override
-    protected void clickRightMenu(String text) {
+    protected void clickRightMenu(String text, View actionView) {
         OrderReportPresenter.selectDate(mContext, mSelectedDates, new CalendarPickerDialog.OnCalendarRangeSelectedListener() {
             @Override
             public void onLeftClicked(CalendarPickerDialog dialog) {

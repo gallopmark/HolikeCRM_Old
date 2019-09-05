@@ -19,6 +19,7 @@ import com.holike.crm.dialog.SelectAreaDialog;
 import com.holike.crm.presenter.activity.OrderRankingPresenter;
 import com.holike.crm.presenter.fragment.OrderReportPresenter;
 import com.holike.crm.util.LogCat;
+import com.holike.crm.util.ParseUtils;
 import com.holike.crm.util.TimeUtil;
 import com.holike.crm.view.activity.OrderRankingView;
 
@@ -98,8 +99,8 @@ public class OrderRankingActivity extends MyFragmentActivity<OrderRankingPresent
                 dialog.dismiss();
                 mSelectedDates = selectedDates;
                 if (selectedDates.size() >= 2) {
-                    startTime = String.valueOf(Long.parseLong(TimeUtil.dataToStamp(start, "yyyy年MM月dd日")));
-                    endTime = String.valueOf(Long.parseLong(TimeUtil.dataToStamp(end, "yyyy年MM月dd日")));
+                    startTime = String.valueOf(ParseUtils.parseLong(TimeUtil.dataToStamp(start, "yyyy年MM月dd日")));
+                    endTime = String.valueOf(ParseUtils.parseLong(TimeUtil.dataToStamp(end, "yyyy年MM月dd日")));
                 } else {
                     startTime = null;
                     endTime = null;
@@ -211,7 +212,7 @@ public class OrderRankingActivity extends MyFragmentActivity<OrderRankingPresent
 
     private int parseValue(String source) {
         try {
-            return (int) Double.parseDouble(source);
+            return (int) ParseUtils.parseDouble(source);
         } catch (Exception e) {
             return -1;
         }

@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.gallopmark.banner.widget.Banner;
 import com.gallopmark.recycler.adapterhelper.CommonAdapter;
 import com.holike.crm.R;
 import com.holike.crm.activity.analyze.OrderReportActivity;
@@ -49,6 +48,7 @@ import com.holike.crm.util.SharedPreferencesUtils;
 import com.holike.crm.view.fragment.HomePageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.umeng.analytics.MobclickAgent;
+import com.xcode.banner.widget.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -411,9 +411,11 @@ public class HomepageFragment extends BaseFragment<HomePagePresenter, HomePageVi
     private void startBanner(List<String> pictures) {
         if (pictures == null || pictures.isEmpty()) return;
         banner.setVisibility(View.VISIBLE);
-        banner.initializer(homepageBean.getMainPicture())
-                .withImageLoader(new MyBannerImageLoader())
+        banner.with(homepageBean.getMainPicture()).withImageLoader(new MyBannerImageLoader())
                 .startup();
+//        banner.initializer(homepageBean.getMainPicture())
+//                .withImageLoader(new MyBannerImageLoader())
+//                .startup();
 //        banner.setImages(homepageBean.getMainPicture());
 //        banner.start();
     }

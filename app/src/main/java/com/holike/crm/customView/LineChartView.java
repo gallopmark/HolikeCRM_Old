@@ -8,8 +8,10 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Typeface;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -19,6 +21,7 @@ import com.holike.crm.base.MyApplication;
 import com.holike.crm.bean.OriginalBoardBean;
 import com.holike.crm.util.CanvasUtil;
 import com.holike.crm.util.DensityUtil;
+import com.holike.crm.util.ParseUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -295,13 +298,9 @@ public class LineChartView extends View {
     }
 
     private float getPercent(String text) {
-        float percent = 0;
+        float percent;
         if (!TextUtils.isEmpty(text)) {
-            try {
-                percent = Float.parseFloat(text.replace("%", ""));
-            } catch (Exception e) {
-                return percent;
-            }
+            percent = ParseUtils.parseFloat(text.replace("%", ""));
         } else {
             return 0;
         }

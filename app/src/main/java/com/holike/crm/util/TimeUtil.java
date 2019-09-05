@@ -33,7 +33,7 @@ public class TimeUtil {
                     break;
             }
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(type);
-            Date date = new Date(Long.parseLong(stamp));
+            Date date = new Date(ParseUtils.parseLong(stamp));
             return simpleDateFormat.format(date);
         } catch (Exception e) {
             return "无法显示时间";

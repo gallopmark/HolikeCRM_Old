@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -62,8 +63,7 @@ public class PayListFragment extends MyFragment<PayListPresenter, PayListView> i
     View vRollDocuments;
     @BindView(R.id.v_select_line)
     View vSelectLine;
-    @BindView(R.id.et_search)
-    EditText etSearch;
+    private EditText etSearch;
     @BindView(R.id.tv_documents_state)
     TextView tvDocumentsState;
     @BindView(R.id.tv_trading_time)
@@ -89,8 +89,7 @@ public class PayListFragment extends MyFragment<PayListPresenter, PayListView> i
     @Override
     protected void init() {
         super.init();
-        setSearchBar(R.string.bill_list_search_hint);
-        setLeft("");
+        etSearch = setSearchBar(R.string.bill_list_search_hint);
         Bundle bundle = getArguments();
         if (bundle != null) {
             HomepageBean.TypeListBean beans = (HomepageBean.TypeListBean) bundle.getSerializable(Constants.TYPE_LIST);
@@ -325,8 +324,7 @@ public class PayListFragment extends MyFragment<PayListPresenter, PayListView> i
     }
 
     @Override
-    protected void clickRightMenu(String menuText) {
-        super.clickRightMenu(menuText);
+    protected void clickRightMenu(String menuText, View actionView) {
         startActivity(MessageActivity.class);
     }
 

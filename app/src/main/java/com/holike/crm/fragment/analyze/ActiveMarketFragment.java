@@ -85,7 +85,7 @@ public class ActiveMarketFragment extends MyFragment<ActiveMarketPresenter, Acti
     }
 
     @Override
-    protected void clickRightMenu(String text) {
+    protected void clickRightMenu(String text,View actionView) {
         startFragment(null, new WirteCityFragment());
     }
 

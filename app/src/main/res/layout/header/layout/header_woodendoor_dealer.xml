@@ -15,22 +15,26 @@
             android:id="@+id/tv_complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="@dimen/dp_140"
             android:minWidth="@dimen/dp_140"
             android:minHeight="@dimen/dp_130"
             android:background="@drawable/six_angles"
             android:gravity="center"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16"
             android:textColor="@color/color_while"
             android:textSize="@dimen/textSize_24"
             android:textStyle="bold" />
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/tv_describe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_6"
             android:gravity="center"
+            android:visibility="gone"
             android:textColor="@color/color_while"
-            android:textSize="@dimen/textSize_14" />
+            android:textSize="@dimen/textSize_14" />-->
 
         <TextView
             android:layout_width="match_parent"

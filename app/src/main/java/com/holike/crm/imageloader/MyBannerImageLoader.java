@@ -6,8 +6,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.gallopmark.banner.loader.ImageLoaderImpl;
 import com.holike.crm.R;
+import com.xcode.banner.loader.ImageLoaderImpl;
 
 public class MyBannerImageLoader extends ImageLoaderImpl {
     @Override

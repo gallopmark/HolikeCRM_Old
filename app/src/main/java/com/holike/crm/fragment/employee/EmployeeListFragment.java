@@ -3,8 +3,10 @@ package com.holike.crm.fragment.employee;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -33,8 +35,7 @@ import butterknife.BindView;
 public class EmployeeListFragment extends MyFragment<EmployeeListPresenter, EmployeeListView>
         implements View.OnClickListener, EmployeeListView, EmployeeListPresenter.OnItemClickListener, EmployeeModel.OnGetStoreCallback {
 
-    @BindView(R.id.et_search)
-    EditText mSearchEditText;
+    private EditText mSearchEditText;
     @BindView(R.id.mLine)
     View mLine;
     @BindView(R.id.mStoreTextView)
@@ -73,9 +74,8 @@ public class EmployeeListFragment extends MyFragment<EmployeeListPresenter, Empl
     }
 
     private void initViewData() {
-        setLeft("");
+        mSearchEditText = setSearchBar(R.string.employee_list_search_hint);
         mSearchEditText.setGravity(Gravity.CENTER | Gravity.START);
-        setSearchBar(R.string.employee_list_search_hint);
         mPresenter.setAdapter(mContext, mRecyclerView, this);
         mStoreTextView.setOnClickListener(this);
         mBillTextView.setOnClickListener(this);

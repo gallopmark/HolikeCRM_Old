@@ -68,7 +68,7 @@
                 android:paddingBottom="@dimen/dp_36"
                 android:visibility="invisible">
 
-                <com.gallopmark.banner.widget.Banner
+                <com.xcode.banner.widget.Banner
                     android:id="@+id/banner_homepage"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_190"

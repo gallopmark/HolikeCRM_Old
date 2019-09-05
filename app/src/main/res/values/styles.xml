@@ -312,4 +312,43 @@
         <item name="android:paddingLeft">@dimen/dp_12</item>
         <item name="android:paddingRight">@dimen/dp_12</item>
     </style>
+
+    <style name="AppToolBarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/color_while</item>
+        <item name="titleTextAppearance">@style/AppToolbarTitleTextStyle</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="titleMarginStart">@dimen/dp_10</item>
+        <item name="titleMarginEnd">@dimen/dp_10</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+        <item name="navigationIcon">@drawable/ic_back_default</item>
+        <item name="android:minHeight">@dimen/dp_44</item>
+        <!--<item name="android:minHeight">?attr/actionBarSize</item>-->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_44</item>
+    </style>
+
+    <!-- toolbar标题文字大小 -->
+    <style name="AppToolbarTitleTextStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/textSize_18</item>
+        <!--<item name="android:textColor">@color/col_black</item>-->
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/textColor4</item>
+    </style>
+    <!-- toolbar标题文字大小 -->
+    <style name="AppToolbarTitleTextStyle2" parent="AppToolbarTitleTextStyle">
+        <item name="android:textColor">@color/color_while</item>
+    </style>
+
+    <style name="AppToastStyle" parent="@android:style/Animation.Toast">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="ImageTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/stylePrimary</item>
+        <item name="colorPrimaryDark">@color/stylePrimaryDark</item>
+        <item name="colorAccent">@color/styleAccent</item>
+    </style>
 </resources>

@@ -22,6 +22,7 @@ import com.holike.crm.dialog.CalendarPickerDialog;
 import com.holike.crm.presenter.fragment.OrderReportPresenter;
 import com.holike.crm.presenter.fragment.OriginalBoardPresenter;
 import com.holike.crm.util.Constants;
+import com.holike.crm.util.ParseUtils;
 import com.holike.crm.util.TimeUtil;
 import com.holike.crm.view.fragment.OriginalBoardView;
 
@@ -170,7 +171,7 @@ public class OriginalBoardFragment extends MyFragment<OriginalBoardPresenter, Or
                     tabSelect(position);
                 }
             });
-            tabType.setCurrentTab(TextUtils.isEmpty(time) ? 0 : Integer.parseInt(time) - 1);
+            tabType.setCurrentTab(TextUtils.isEmpty(time) ? 0 : ParseUtils.parseInt(time) - 1);
         }
     }
 

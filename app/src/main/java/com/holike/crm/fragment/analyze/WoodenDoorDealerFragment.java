@@ -58,8 +58,8 @@ public class WoodenDoorDealerFragment extends MyFragment {
             if (bean != null && bean.getDealerData() != null) {
                 WoodenDoorBean.DealerDataBean dataBean = bean.getDealerData();
                 setupHeader(dataBean);
-                WoodenDoorBean.DealerListBean dealerDataBean = new WoodenDoorBean.DealerListBean("全年", dataBean.totalComplete);
-                dataBean.getDealerList().add(0, dealerDataBean);
+//                WoodenDoorBean.DealerListBean dealerDataBean = new WoodenDoorBean.DealerListBean("全年", dataBean.totalComplete);
+//                dataBean.getDealerList().add(0, dealerDataBean);
                 setList(dataBean.getDealerList());
             }
         }
@@ -69,8 +69,8 @@ public class WoodenDoorDealerFragment extends MyFragment {
         View headerView = LayoutInflater.from(mContext).inflate(R.layout.header_woodendoor_dealer, new LinearLayout(mContext), false);
         TextView tvComplete = headerView.findViewById(R.id.tv_complete);
         tvComplete.setText(obtainTotal(bean.totalComplete));
-        TextView tvDescribe = headerView.findViewById(R.id.tv_describe);
-        tvDescribe.setText(bean.dealerTime);
+//        TextView tvDescribe = headerView.findViewById(R.id.tv_describe);
+//        tvDescribe.setText(bean.dealerTime);
         LineChartView lineChartView = headerView.findViewById(R.id.chart_view);
         List<OriginalBoardBean.DealerDataBean> list = new ArrayList<>();
         for (WoodenDoorBean.DealerListBean listBean : bean.getDealerList()) {

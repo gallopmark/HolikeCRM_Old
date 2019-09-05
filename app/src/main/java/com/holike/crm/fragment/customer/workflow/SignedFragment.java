@@ -15,6 +15,7 @@ import com.holike.crm.bean.TypeIdBean;
 import com.holike.crm.fragment.customer.WorkflowFragment;
 import com.holike.crm.http.MyJsonParser;
 import com.holike.crm.util.NumberUtil;
+import com.holike.crm.util.ParseUtils;
 import com.holike.crm.view.fragment.WorkflowView;
 
 import java.text.SimpleDateFormat;
@@ -109,7 +110,7 @@ public class SignedFragment extends WorkflowFragment implements WorkflowView {
     private double parseDouble(String source) {
         if (TextUtils.isEmpty(source)) return 0;
         try {
-            return Double.parseDouble(source);
+            return ParseUtils.parseDouble(source);
         } catch (Exception e) {
             return 0;
         }

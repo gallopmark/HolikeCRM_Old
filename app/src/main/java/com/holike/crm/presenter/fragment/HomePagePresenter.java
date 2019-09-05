@@ -10,6 +10,7 @@ import com.holike.crm.base.BasePresenter;
 import com.holike.crm.bean.HomepageBean;
 import com.holike.crm.model.fragment.HomePageModel;
 import com.holike.crm.util.Constants;
+import com.holike.crm.util.ParseUtils;
 import com.holike.crm.util.SharedPreferencesUtils;
 import com.holike.crm.view.fragment.HomePageView;
 
@@ -76,11 +77,11 @@ public class HomePagePresenter extends BasePresenter<HomePageView, HomePageModel
     }
 
     public static int getMsgNum(String msgNum) {
-        return Integer.parseInt(msgNum);
+        return ParseUtils.parseInt(msgNum);
     }
 
 
     public static boolean isNewMsg() {
-        return Integer.parseInt(getMsgNum()) > 0;
+        return ParseUtils.parseInt(getMsgNum()) > 0;
     }
 }

@@ -213,7 +213,7 @@ public class OrderReportFragment extends MyFragment<OrderReportPresenter, OrderR
     }
 
     @Override
-    protected void clickRightMenu(String menuText) {
+    protected void clickRightMenu(String text,View actionView) {
         showLoading();
         mPresenter.getCompleteData(cityCode, type);
     }

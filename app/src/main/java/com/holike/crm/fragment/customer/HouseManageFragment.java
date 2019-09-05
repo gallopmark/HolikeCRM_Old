@@ -38,6 +38,7 @@ import com.holike.crm.fragment.message.NotifyFragment;
 import com.holike.crm.http.MyJsonParser;
 import com.holike.crm.util.Constants;
 import com.holike.crm.util.NoDoubleClickUtil;
+import com.holike.crm.util.ParseUtils;
 import com.holike.crm.util.TimeUtil;
 import com.holike.crm.view.fragment.WorkflowView;
 import com.umeng.analytics.MobclickAgent;
@@ -259,18 +260,14 @@ public class HouseManageFragment extends WorkflowFragment implements WorkflowVie
     private void showHistory(final List<CustomerDetailBean.CustomerDetailInfoListBean.ListHistoryBean> listHistoryBeans) {
         if (listHistoryBeans != null && listHistoryBeans.size() > 0) {
             final CustomerDetailBean.CustomerDetailInfoListBean.ListHouseInfoBean houseInfoBean = infoListBean.getListHouseInfo();
-            rvRecord.setAdapter(new CommonAdapter<CustomerDetailBean.CustomerDetailInfoListBean.ListHistoryBean>(mContext,listHistoryBeans){
+            rvRecord.setAdapter(new CommonAdapter<CustomerDetailBean.CustomerDetailInfoListBean.ListHistoryBean>(mContext, listHistoryBeans) {
 
                 @Override
                 public int getItemViewType(int position) {
-                    if(mDatas.get(position).getHistory() == null){
+                    if (mDatas.get(position).getHistory() == null) {
                         return 0;
                     }
-                    try {
-                        return Integer.parseInt(mDatas.get(position).getHistory().getOperateCode());
-                    } catch (Exception e) {
-                        return 0;
-                    }
+                    return ParseUtils.parseInt(mDatas.get(position).getHistory().getOperateCode());
                 }
 
                 @Override

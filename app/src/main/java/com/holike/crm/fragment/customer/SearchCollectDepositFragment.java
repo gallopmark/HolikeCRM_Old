@@ -76,9 +76,14 @@ public class SearchCollectDepositFragment extends MyFragment<CollectDepositPrese
                 holder.itemView.setOnClickListener(v -> {
                     Map<String, Serializable> params = new HashMap<>();
                     params.put(Constants.COLLECT_DEPOSIT_LIST_BEAN, bean);
-                    startFragment(params, new com.holike.crm.fragment.customer.workflow.CollectDepositFragment());
+                    startFragment(params, new CollectDepositFragment());
                 });
             }
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return mDatas.get(position).getItemType();
         }
 
         @Override

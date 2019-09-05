@@ -3,6 +3,8 @@ package com.holike.crm.fragment.customer;
 import android.content.Intent;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.View;
 import android.widget.TextView;
 
 import com.gallopmark.recycler.adapterhelper.CommonAdapter;
@@ -70,7 +72,7 @@ public class CollectDepositFragment extends MyFragment<CollectDepositPresenter, 
      * 新建客户
      */
     @Override
-    protected void clickRightMenu(String text) {
+    protected void clickRightMenu(String menuText, View actionView) {
         Intent intent = new Intent(mContext, AddCustomerActivity.class);
         intent.putExtra(Constants.IS_EARNEST, "1");
         startActivityForResult(intent, REQUEST_CODE);

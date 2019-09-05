@@ -17,7 +17,7 @@
             android:layout_height="@dimen/dp_14"
             android:layout_gravity="center|left"
             android:layout_marginLeft="@dimen/dp_12"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/ic_back_default" />
 
         <TextView
             android:id="@+id/iv_back"

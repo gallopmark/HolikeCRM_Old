@@ -1,11 +1,13 @@
 package com.holike.crm.fragment.customer;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -89,8 +91,8 @@ public class CustomerDetailFragment extends MyFragment<CustomerDetailPresenter, 
     }
 
     @Override
-    protected void clickRightMenu(String text) {
-        super.clickRightMenu(text);
+    protected void clickRightMenu(String text, View actionView) {
+        super.clickRightMenu(text, actionView);
         startActivity(MessageActivity.class);
     }
 

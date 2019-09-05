@@ -52,8 +52,6 @@ public class OnlineDeclarationFragment extends MyFragment<OnlineDeclarationPrese
     RecyclerView mRecyclerView;
     @BindView(R.id.srl_bill_list)
     SmartRefreshLayout refreshLayout;
-    @BindView(R.id.ll_main)
-    LinearLayout llMain;
     @BindView(R.id.tv_select_date)
     TextView tvSelectDate;
     @BindView(R.id.ll_add)
@@ -112,8 +110,7 @@ public class OnlineDeclarationFragment extends MyFragment<OnlineDeclarationPrese
     }
 
     @Override
-    protected void clickRightMenu(String menuText) {
-        super.clickRightMenu(menuText);
+    protected void clickRightMenu(String menuText, View actionView) {
         startActivity(MessageActivity.class);
     }
 

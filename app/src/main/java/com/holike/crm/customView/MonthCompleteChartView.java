@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
+
 import androidx.annotation.Nullable;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.holike.crm.base.MyApplication;
 import com.holike.crm.bean.MonthCompleteBean;
 import com.holike.crm.util.CanvasUtil;
 import com.holike.crm.util.DensityUtil;
+import com.holike.crm.util.ParseUtils;
 
 import java.util.List;
 
@@ -163,11 +166,7 @@ public class MonthCompleteChartView extends View {
 
     private float getValue(int position) {
         if (beans != null && !TextUtils.isEmpty(beans.get(position).getDepositPercent())) {
-            try {
-                return Float.parseFloat(beans.get(position).getDepositPercent().replace("%", ""));
-            } catch (Exception e) {
-                return 0;
-            }
+            return ParseUtils.parseFloat(beans.get(position).getDepositPercent().replace("%", ""));
         } else {
             return 0;
         }
@@ -189,12 +188,7 @@ public class MonthCompleteChartView extends View {
         if (beans != null) {
             for (MonthCompleteBean bean : beans) {
                 if (!TextUtils.isEmpty(bean.getDepositPercent())) {
-                    float i = 0;
-                    try {
-                        i = Float.parseFloat(bean.getDepositPercent().replace("%", ""));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    float i = ParseUtils.parseFloat(bean.getDepositPercent().replace("%", ""));
                     if (i > max) {
                         max = i;
                     }

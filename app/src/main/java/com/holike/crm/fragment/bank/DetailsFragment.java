@@ -3,6 +3,7 @@ package com.holike.crm.fragment.bank;
 import android.content.Intent;
 
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.gallopmark.imagepicker.model.ImagePicker;
 import com.holike.crm.R;
 import com.holike.crm.base.MyFragment;
+import com.holike.crm.base.ToolbarHelper;
 import com.holike.crm.bean.PayListBean;
 import com.holike.crm.bean.UploadByRelationBean;
 import com.holike.crm.helper.UploadImgHelper;
@@ -18,7 +20,6 @@ import com.holike.crm.model.event.MessageEvent;
 import com.holike.crm.popupwindown.ListMenuPopupWindow;
 import com.holike.crm.presenter.fragment.PayDetailsPresenter;
 import com.holike.crm.util.Constants;
-import com.holike.crm.util.DensityUtil;
 import com.holike.crm.view.fragment.PayDetailsView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -119,7 +120,8 @@ public class DetailsFragment extends MyFragment<PayDetailsPresenter, PayDetailsV
         if (TextUtils.equals(statusCode, "01")) {
             llCommit.setVisibility(View.VISIBLE);
             if (!TextUtils.isEmpty(payListBean.getCategory()) && payListBean.getCategory().equals(Constants.ONLINE_DECLARATION)) {
-                setRightMenu(R.drawable.details_more);
+//                setRightMenu(R.drawable.details_more);
+                setOptionsMenu(R.menu.menu_more);
             }
             tvRelationTip.setVisibility(View.VISIBLE);
             UploadImgHelper.setImgList(mContext, mRecyclerView, images, getString(R.string.details_confidential_information_add), 9, clickImgListener);
@@ -129,7 +131,8 @@ public class DetailsFragment extends MyFragment<PayDetailsPresenter, PayDetailsV
         } else if (TextUtils.equals(statusCode, "03")) {
             llCommit.setVisibility(View.VISIBLE);
             if (payListBean.getCategory().equals(Constants.ONLINE_DECLARATION)) {
-                setRightMenu(R.drawable.details_more);
+//                setRightMenu(R.drawable.details_more);
+                setOptionsMenu(R.menu.menu_more);
             }
             UploadImgHelper.setImgList(mContext, mRecyclerView, images, getString(R.string.feedback_add_deposit_receipt), 9, clickImgListener);
             tvRelationTip.setVisibility(View.VISIBLE);
@@ -142,12 +145,13 @@ public class DetailsFragment extends MyFragment<PayDetailsPresenter, PayDetailsV
     }
 
     @Override
-    protected void clickRightMenu(String text) {
-        super.clickRightMenu(text);
+    protected void clickRightMenu(String text, View actionView) {
+        super.clickRightMenu(text, actionView);
         switch (text) {
             case "":
                 ListMenuPopupWindow popupWindow = new ListMenuPopupWindow(mContext, R.array.title_credit_info, R.array.title_credit_info_id, this);
-                popupWindow.showAsDropDown(mContentView.findViewById(R.id.iv_right_menu), -DensityUtil.dp2px(6), 0);
+//                popupWindow.showAsDropDown(mContentView.findViewById(R.id.iv_right_menu), -DensityUtil.dp2px(6), 0);
+                ToolbarHelper.showPopupWindow(popupWindow, actionView);
                 break;
             case "修改":
                 Map<String, Serializable> params = new HashMap<>();

@@ -31,7 +31,7 @@
                 android:layout_width="@dimen/dp_9"
                 android:layout_height="@dimen/dp_14"
                 android:layout_gravity="center|left"
-                android:src="@drawable/icon_back"
+                android:src="@drawable/ic_back_default"
                 android:tint="@color/color_while" />
 
             <TextView

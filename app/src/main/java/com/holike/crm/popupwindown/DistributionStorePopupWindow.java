@@ -46,7 +46,6 @@ public class DistributionStorePopupWindow extends BasePopupWindow implements Sho
     private List<DistributionStoreBean> dataBeans = new ArrayList<>(0);
     private DistributionGuiderBean guiderDataBeans;
     private View view;
-    private AppToastCompat mToastCompat;
 
 
     public DistributionStorePopupWindow(Context context, CustomerListBean bean, StateCallback stateCallback) {
@@ -242,17 +241,9 @@ public class DistributionStorePopupWindow extends BasePopupWindow implements Sho
         showShortToast(errorMsg);
     }
 
-    private void cancelToast() {
-        if (mToastCompat != null) {
-            mToastCompat.cancel();
-        }
-    }
-
     private void showShortToast(CharSequence text) {
         if (TextUtils.isEmpty(text)) return;
-        cancelToast();
-        mToastCompat = AppToastCompat.makeText(mContext, Toast.LENGTH_SHORT);
-        mToastCompat.show(text);
+        AppToastCompat.makeText(mContext, text, Toast.LENGTH_SHORT).show();
     }
 
     @Override

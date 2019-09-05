@@ -14,6 +14,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.holike.crm.R;
 import com.holike.crm.base.MyFragment;
 import com.holike.crm.customView.CompatToast;
@@ -151,15 +153,11 @@ public class ScanByPhoneFragment extends MyFragment<ScanByPhonePresenter, ScanBy
                 break;
             case R.id.tv_scan_lighting:
                 if (isLightingOpen) {
-                    Drawable nav_up = getResources().getDrawable(R.drawable.scanning_light_c);
-                    nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
-                    tvScanLighting.setCompoundDrawables(null, nav_up, null, null);
+                    tvScanLighting.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(mContext, R.drawable.scanning_light_c), null, null);
                     mZXingView.closeFlashlight();
                     isLightingOpen = false;
                 } else {
-                    Drawable nav_up = getResources().getDrawable(R.drawable.scanning_light_o);
-                    nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
-                    tvScanLighting.setCompoundDrawables(null, nav_up, null, null);
+                    tvScanLighting.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(mContext, R.drawable.scanning_light_o), null, null);
                     isLightingOpen = true;
                     mZXingView.openFlashlight();
                 }

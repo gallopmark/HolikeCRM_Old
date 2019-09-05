@@ -14,6 +14,7 @@ import com.holike.crm.bean.PushMsgBean;
 import com.holike.crm.util.Constants;
 import com.holike.crm.util.LogCat;
 import com.holike.crm.util.NotificationUtils;
+import com.holike.crm.util.ParseUtils;
 
 import java.io.Serializable;
 
@@ -66,7 +67,7 @@ public class JPushReceiver extends BroadcastReceiver {
     private void notify(Context context, String msg) {
         final PushMsgBean bean = new Gson().fromJson(msg, PushMsgBean.class);
         sendUpdateBroadcast(Constants.ACTION_UNREAD_MESSAGE, "1");
-        switch (Integer.parseInt(bean.getType())) {
+        switch (ParseUtils.parseInt(bean.getType())) {
             case 12:
                 new NotificationUtils(context).sendNotification(bean.getTitle(), bean.getContent(), getPendingIntent(context, MessageActivity.class, Constants.PUSH_TYPE_NOTIFY), true, true);
                 break;

@@ -3,15 +3,11 @@ package com.holike.crm.fragment.analyze;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.gallopmark.recycler.adapterhelper.CommonAdapter;
@@ -110,7 +106,6 @@ public class WoodenDoorPersonalFragment extends MyFragment<WoodenDoorPresenter, 
             for (WoodenDoorBean.SelectDataBean bean : selectDataBeans) {
                 mTabTitles.add(bean.name);
             }
-//            mViewpager.setAdapter(obtain(mTabTitles.size()));
             mTabLayout.setupViewPager(mViewpager, mTabTitles.toArray(new String[0]));
             mTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
                 @Override
@@ -127,66 +122,31 @@ public class WoodenDoorPersonalFragment extends MyFragment<WoodenDoorPresenter, 
         }
     }
 
-    private PagerAdapter obtain(final int size) {
-        return new PagerAdapter() {
-            @Override
-            public int getCount() {
-                return size;
-            }
-
-            @Override
-            public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-                return view == object;
-            }
-
-            @NonNull
-            @Override
-            public Object instantiateItem(@NonNull ViewGroup container, int position) {
-                View view = new View(container.getContext());
-                container.addView(view);
-                return view;
-            }
-
-            @Override
-            public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-                container.removeView((View) object);
-            }
-        };
-    }
-
     private void setAdapter(List<WoodenDoorBean.PercentDataBean> list) {
         mRecyclerView.setAdapter(new CommonAdapter<WoodenDoorBean.PercentDataBean>(mContext, list) {
             @Override
             protected int bindView(int viewType) {
-                return R.layout.item_rv_product_trading_report;
+                return R.layout.item_rv_woodendoor_report;
             }
 
             @Override
             public void onBindHolder(RecyclerHolder holder, WoodenDoorBean.PercentDataBean bean, int position) {
-                LinearLayout ll = holder.obtainView(R.id.ll_item_rv_product_trading_report);
-                TextView tvArea = holder.obtainView(R.id.tv_item_rv_product_trading_report_area);
-                TextView tvName = holder.obtainView(R.id.tv_item_rv_product_trading_report_name);
-                TextView tvTarget = holder.obtainView(R.id.tv_item_rv_product_trading_report_target);
-                TextView tvComplete = holder.obtainView(R.id.tv_item_rv_product_trading_report_complete);
-                TextView tvCompletePercent = holder.obtainView(R.id.tv_item_rv_product_trading_report_complete_percen);
-                TextView tvRank = holder.obtainView(R.id.tv_item_rv_product_trading_report_rank);
-                ll.setBackgroundResource(position % 2 == 0 ? R.color.bg_item_order_report : R.color.color_while);
-                tvArea.setTextColor(ContextCompat.getColor(mContext, bean.isClick() ? R.color.textColor5 : R.color.textColor8));
-                tvArea.setText(bean.area);
-                tvName.setText(bean.name);
-                tvTarget.setText(bean.countsTarget);
-                tvCompletePercent.setText(bean.percentComplete);
-                tvComplete.setText(bean.countsComplete);
-                tvRank.setText(bean.rank);
-                tvArea.setOnClickListener(v -> {
-                    if (bean.isClick()) {
-                        Map<String, Serializable> params = new HashMap<>();
-                        params.put(Constants.CITY_CODE, bean.cityCode);
-                        params.put(Constants.TIME, mTime);
-                        params.put(Constants.TYPE, bean.type);
-                        params.put(Constants.TITLE, bean.area);
-                        startFragment(params, new WoodenDoorPersonalFragment());
-                    }
+                holder.itemView.setBackgroundResource(position % 2 == 0 ? R.color.bg_item_order_report : R.color.color_while);
+                holder.setText(R.id.tv_area, bean.area);
+                holder.setText(R.id.tv_name, bean.name);
+                holder.setText(R.id.tv_target, bean.countsTarget);
+                holder.setText(R.id.tv_complete, bean.countsComplete);
+                holder.setText(R.id.tv_complete_percent, bean.percentComplete);
+                holder.setText(R.id.tv_rank, bean.rank);
+                holder.setTextColorRes(R.id.tv_area, bean.isClick() ? R.color.textColor5 : R.color.textColor8);
+                holder.setEnabled(R.id.tv_area, bean.isClick());
+                holder.setOnClickListener(R.id.tv_area, view -> {
+                    Map<String, Serializable> params = new HashMap<>();
+                    params.put(Constants.CITY_CODE, bean.cityCode);
+                    params.put(Constants.TIME, mTime);
+                    params.put(Constants.TYPE, bean.type);
+                    params.put(Constants.TITLE, bean.area);
+                    startFragment(params, new WoodenDoorPersonalFragment());
                 });
             }
         });

@@ -351,7 +351,7 @@ public class LunarSolarConverter {
 
         try {
 
-            return Integer.parseInt(str);
+            return ParseUtils.parseInt(str);
 
         } catch (Exception e) {
 

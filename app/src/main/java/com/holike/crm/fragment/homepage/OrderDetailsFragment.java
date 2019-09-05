@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.holike.crm.R;
 import com.holike.crm.base.MyFragment;
+import com.holike.crm.base.ToolbarHelper;
 import com.holike.crm.bean.OrderDetailsBean;
 import com.holike.crm.customView.CompatToast;
 import com.holike.crm.fragment.customer.LogisticsInfoFragment;
@@ -19,7 +20,6 @@ import com.holike.crm.fragment.customer.SpaceManifestFragment;
 import com.holike.crm.popupwindown.ListMenuPopupWindow;
 import com.holike.crm.presenter.activity.OrderDetailsPresenter;
 import com.holike.crm.util.Constants;
-import com.holike.crm.util.DensityUtil;
 import com.holike.crm.view.activity.OrderDetailsView;
 import com.umeng.analytics.MobclickAgent;
 
@@ -105,15 +105,16 @@ public class OrderDetailsFragment extends MyFragment<OrderDetailsPresenter, Orde
             orderId = String.valueOf(bundle.getSerializable(Constants.ORDER_ID));
             mPresenter.getOrderDetails(orderId, String.valueOf(bundle.getSerializable(Constants.MESSAGE_ID)));
         }
-        setRightMenu(R.drawable.details_more);
+        setOptionsMenu(R.menu.menu_more);
     }
 
     @Override
-    protected void clickRightMenu(String menuText) {
-        super.clickRightMenu(menuText);
+    protected void clickRightMenu(String menuText, View actionView) {
+        super.clickRightMenu(menuText, actionView);
 
         ListMenuPopupWindow popupWindow = new ListMenuPopupWindow(mContext, R.array.title_order_info, R.array.title_order_info_id, this);
-        popupWindow.showAsDropDown(mContentView.findViewById(R.id.iv_right_menu), -DensityUtil.dp2px(6), 0);
+//        popupWindow.showAsDropDown(actionView, -DensityUtil.dp2px(6), 0, Gravity.END);
+        ToolbarHelper.showPopupWindow(popupWindow, actionView);
     }
 
     @Override

@@ -92,8 +92,7 @@ public class ReceivingScanFragment extends MyFragment<ReceivingScanPresenter, Re
     }
 
     @Override
-    protected void clickRightMenu(String menuText) {
-        super.clickRightMenu(menuText);
+    protected void clickRightMenu(String menuText,View actionView) {
         startActivity(MessageActivity.class);
     }
 

@@ -17,6 +17,7 @@ import com.holike.crm.bean.NoMoreBean;
 import com.holike.crm.fragment.bank.BillDetialFragment;
 import com.holike.crm.model.fragment.BillListModel;
 import com.holike.crm.util.Constants;
+import com.holike.crm.util.ParseUtils;
 import com.holike.crm.view.fragment.BillListView;
 
 import java.io.Serializable;
@@ -46,8 +47,8 @@ public class BillListPresenter extends BasePresenter<BillListView, BillListModel
                 holder.setText(R.id.tv_cztxt, MyFragment.textEmpty(pageDataBean.getCztxt()));
                 holder.setText(R.id.tv_order_bstkd, MyFragment.textEmpty(pageDataBean.getBstkd()));
                 holder.setText(R.id.tv_order_date, MyFragment.textEmpty(pageDataBean.getZdate()));
-                holder.setText(R.id.tv_money, Double.parseDouble(pageDataBean.getMoney()) > 0 ? "+" + MyFragment.textEmptyNumber(pageDataBean.getMoney()) : MyFragment.textEmptyNumber(pageDataBean.getMoney()));
-                holder.setTextColor(R.id.tv_money, Double.parseDouble(pageDataBean.getMoney()) > 0 ? mContext.getResources().getColor(R.color.bg_homepage_new) : mContext.getResources().getColor(R.color.textColor4));
+                holder.setText(R.id.tv_money, ParseUtils.parseDouble(pageDataBean.getMoney()) > 0 ? "+" + MyFragment.textEmptyNumber(pageDataBean.getMoney()) : MyFragment.textEmptyNumber(pageDataBean.getMoney()));
+                holder.setTextColor(R.id.tv_money,ParseUtils.parseDouble(pageDataBean.getMoney()) > 0 ? mContext.getResources().getColor(R.color.bg_homepage_new) : mContext.getResources().getColor(R.color.textColor4));
                 holder.setVisibility(R.id.v_line, getItemCount() != position + 1);
                 holder.itemView.setOnClickListener(v -> {
                     if (getView() != null) {
@@ -62,6 +63,11 @@ public class BillListPresenter extends BasePresenter<BillListView, BillListModel
                     return true;
                 });
             }
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return mDatas.get(position).getItemType();
         }
 
         @Override
@@ -133,8 +139,8 @@ public class BillListPresenter extends BasePresenter<BillListView, BillListModel
                 holder.setText(R.id.tv_cztxt, MyFragment.textEmpty(pageDataBean.getCztxt()));
                 holder.setText(R.id.tv_order_bstkd, MyFragment.textEmpty(pageDataBean.getBstkd()));
                 holder.setText(R.id.tv_order_date, MyFragment.textEmpty(pageDataBean.getZdate()));
-                holder.setText(R.id.tv_money, Double.parseDouble(pageDataBean.getMoney()) > 0 ? "+" + MyFragment.textEmptyNumber(pageDataBean.getMoney()) : MyFragment.textEmptyNumber(pageDataBean.getMoney()));
-                holder.setTextColor(R.id.tv_money, Double.parseDouble(pageDataBean.getMoney()) > 0 ? mContext.getResources().getColor(R.color.bg_homepage_new) : mContext.getResources().getColor(R.color.textColor4));
+                holder.setText(R.id.tv_money, ParseUtils.parseDouble(pageDataBean.getMoney()) > 0 ? "+" + MyFragment.textEmptyNumber(pageDataBean.getMoney()) : MyFragment.textEmptyNumber(pageDataBean.getMoney()));
+                holder.setTextColor(R.id.tv_money, ParseUtils.parseDouble(pageDataBean.getMoney()) > 0 ? mContext.getResources().getColor(R.color.bg_homepage_new) : mContext.getResources().getColor(R.color.textColor4));
                 holder.setVisibility(R.id.v_line, beans.size() != position + 1);
                 holder.itemView.setOnClickListener(v -> {
                     Map<String, Serializable> params = new HashMap<>();

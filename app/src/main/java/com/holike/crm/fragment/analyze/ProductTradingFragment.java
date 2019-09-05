@@ -1,11 +1,14 @@
 package com.holike.crm.fragment.analyze;
 
 import android.os.Bundle;
+
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -89,11 +92,8 @@ public class ProductTradingFragment extends MyFragment<ProductTradingPresenter, 
         showLoading();
     }
 
-    /**
-     * 各月完成率
-     */
     @Override
-    protected void clickRightMenu(String text) {
+    protected void clickRightMenu(String menuText, View actionView) {
         startFragment(new ProductCompleteFragment());
     }
 
@@ -150,7 +150,6 @@ public class ProductTradingFragment extends MyFragment<ProductTradingPresenter, 
 
     /**
      * 切换导航
-     *
      */
     private void initTab(final List<ProductTradingBean.SelectDataBean> selectDataBeans) {
         if (tabTitles == null) {

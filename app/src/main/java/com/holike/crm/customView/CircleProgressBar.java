@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.holike.crm.R;
+import com.holike.crm.util.ParseUtils;
 
 /**
  * Created by wqj on 2018/4/18.
@@ -114,7 +115,7 @@ public class CircleProgressBar extends View {
             this.text = "- %";
         } else {
             this.text = text;
-            progress = Float.parseFloat(text.replace("%", ""));
+            progress = ParseUtils.parseFloat(text.replace("%", ""));
             if (progress > max) {
                 progress = max;
             }

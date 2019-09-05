@@ -97,8 +97,7 @@ public class FeedbackFragment extends MyFragment<FeedbackPresenter, FeedbackView
      * 反馈记录
      */
     @Override
-    protected void clickRightMenu(String menuText) {
-        super.clickRightMenu(menuText);
+    protected void clickRightMenu(String menuText,View actionView) {
         startActivity(FeedbackRecordActivity.class);
     }
 

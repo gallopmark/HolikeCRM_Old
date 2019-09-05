@@ -207,7 +207,7 @@ public class PerformanceFragment extends MyFragment<PerformancePresenter, Perfor
                 tabTitles.add(bean.getName());
             }
             vp.setAdapter(DealerRankPresenter.getPagerAdapter(tabTitles.size()));
-            PerformancePresenter.setTabWidth(tabType, tabTitles.size());
+//            PerformancePresenter.setTabWidth(tabType, tabTitles.size());
             tabType.setupViewPager(vp, tabTitles.toArray(new String[0]));
             tabType.setOnTabSelectListener(new OnTabSelectListener() {
                 @Override

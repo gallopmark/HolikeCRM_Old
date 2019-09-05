@@ -1,8 +1,10 @@
 package com.holike.crm.fragment.analyze;
 
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import com.holike.crm.bean.PerformanceBean;
 import com.holike.crm.bean.staticbean.JumpBean;
 import com.holike.crm.customView.ScaleProgressView;
 import com.holike.crm.util.Constants;
+import com.holike.crm.util.ParseUtils;
 
 import java.util.List;
 
@@ -109,13 +112,13 @@ public class PerformancePersonalFragment extends MyFragment {
         });
     }
 
-    private String getComplete(String percen) {
-        if (TextUtils.isEmpty(percen)) return "";
-        float f = Float.parseFloat(percen);
+    private String getComplete(String percent) {
+        if (TextUtils.isEmpty(percent)) return "";
+        float f = ParseUtils.parseFloat(percent);
         if (f > 100) {
             return "100%";
         } else {
-            return percen + "%";
+            return percent + "%";
         }
     }
 }
