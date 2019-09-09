@@ -9,12 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <com.xcode.general.YouthToolbar
+    <com.holike.crm.customView.TitleBar
         android:id="@+id/app_toolbar"
         style="@style/AppToolBarStyle">
 
+        <TextView
+            android:id="@+id/tv_appbar_title"
+            style="@style/TitleBarTitleStyle" />
+
         <include layout="@layout/include_menu_layout" />
-    </com.xcode.general.YouthToolbar>
+    </com.holike.crm.customView.TitleBar>
 
     <!--<RelativeLayout
         android:id="@+id/fl_fragment_title_bar"

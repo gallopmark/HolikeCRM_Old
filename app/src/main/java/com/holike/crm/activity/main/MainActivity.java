@@ -1,7 +1,6 @@
 package com.holike.crm.activity.main;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
@@ -11,7 +10,6 @@ import android.widget.Toast;
 import com.holike.crm.R;
 import com.holike.crm.activity.login.LoginActivity;
 import com.holike.crm.base.MyFragmentActivity;
-import com.holike.crm.bean.DownloadFileBean;
 import com.holike.crm.bean.UpdateBean;
 import com.holike.crm.customView.MainTableLayout;
 import com.holike.crm.dialog.UpdateAppDialog;
@@ -22,9 +20,8 @@ import com.holike.crm.fragment.homepage.CustomerManageFragment;
 import com.holike.crm.fragment.homepage.HomepageFragment;
 import com.holike.crm.fragment.homepage.OrderFragment;
 import com.holike.crm.presenter.activity.MainPresenter;
-import com.holike.crm.service.UpdateService;
+import com.holike.crm.service.VersionUpdateService;
 import com.holike.crm.util.Constants;
-import com.holike.crm.util.IOUtil;
 import com.holike.crm.util.SharedPreferencesUtils;
 import com.holike.crm.view.activity.MainView;
 import com.umeng.analytics.MobclickAgent;
@@ -152,16 +149,17 @@ public class MainActivity extends MyFragmentActivity<MainPresenter, MainView> im
     public void showUpdateAppDialog(final Context context, final UpdateBean updateBean) {
         new UpdateAppDialog(context, updateBean).setUpdateButtonClickListener(dialog -> {
             dialog.dismiss();
-            if (updateBean.getType() == UpdateBean.TYPE_DOWNLOAD) {
-                showLongToast("正在下载...");
-//                Toast.makeText(MyApplication.getInstance(), "正在下载...", Toast.LENGTH_SHORT).show();
-                DownloadFileBean downloadFileBean = new DownloadFileBean(updateBean.getUpdatepath(), "CRM.apk");
-                Intent intent = new Intent(context, UpdateService.class);
-                intent.putExtra(UpdateService.DOWNLOADFILEBEAN, downloadFileBean);
-                context.startService(intent);
-            } else if (updateBean.getType() == UpdateBean.TYPE_INSTALL) {
-                UpdateService.install(IOUtil.getCachePath() + "/" + "CRM.apk");
-            }
+            VersionUpdateService.start(context,updateBean.getUpdatepath());
+//            if (updateBean.getType() == UpdateBean.TYPE_DOWNLOAD) {
+//                showLongToast("正在下载...");
+////                Toast.makeText(MyApplication.getInstance(), "正在下载...", Toast.LENGTH_SHORT).show();
+//                DownloadFileBean downloadFileBean = new DownloadFileBean(updateBean.getUpdatepath(), "CRM.apk");
+//                Intent intent = new Intent(context, UpdateService.class);
+//                intent.putExtra(UpdateService.DOWNLOADFILEBEAN, downloadFileBean);
+//                context.startService(intent);
+//            } else if (updateBean.getType() == UpdateBean.TYPE_INSTALL) {
+//                UpdateService.install(AppUtils.getApkPath() + "/" + "CRM.apk");
+//            }
         }).show();
     }
 

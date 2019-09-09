@@ -2,6 +2,7 @@ package com.holike.crm.bean;
 
 
 import com.holike.crm.http.ProgressResponseBody;
+import com.holike.crm.util.AppUtils;
 import com.holike.crm.util.IOUtil;
 import com.holike.crm.util.MD5Util;
 
@@ -14,7 +15,7 @@ import java.io.Serializable;
 
 public class DownloadFileBean implements Serializable {
     private String url;         //下载文件地址
-    private String path = IOUtil.getCachePath();           //保存文件的文件夹,默认下载到cache文件夹中
+    private String path = AppUtils.getApkPath();           //保存文件的文件夹,默认下载到cache文件夹中
     private String fileName;    //保存的文件名
     private ProgressResponseBody.ProgressListener progressListener;//下载进度回调监听
 

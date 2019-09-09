@@ -86,14 +86,11 @@ public class Download {
                     }
                 }
             }
-        }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<List<DownloadFileBean>>() {
-            @Override
-            public void accept(List<DownloadFileBean> strings) throws Exception {
-                if (currentCall.isCanceled()) {
-                    listener.failed();
-                } else {
-                    listener.success();
-                }
+        }).observeOn(AndroidSchedulers.mainThread()).subscribe(strings -> {
+            if (currentCall.isCanceled()) {
+                listener.failed();
+            } else {
+                listener.success();
             }
         });
     }

@@ -6,6 +6,7 @@ import com.holike.crm.base.BasePresenter;
 import com.holike.crm.base.MyApplication;
 import com.holike.crm.bean.UpdateBean;
 import com.holike.crm.model.activity.MainModel;
+import com.holike.crm.util.AppUtils;
 import com.holike.crm.util.Constants;
 import com.holike.crm.util.IOUtil;
 import com.holike.crm.util.PackageUtil;
@@ -50,7 +51,7 @@ public class MainPresenter extends BasePresenter<MainView, MainModel> {
      * @param updateBean
      */
     public static void setUpdateType(UpdateBean updateBean) {
-        int localVersion = PackageUtil.getVersionCode(IOUtil.getCachePath() + "/" + "CRM.apk");     //本地安装包版本
+        int localVersion = PackageUtil.getVersionCode(AppUtils.getApkPath() + "/" + "CRM.apk");     //本地安装包版本
         int netVersion = ParseUtils.parseInt(updateBean.getVersion());                                                      //线上版本
         int currentVersion = PackageUtil.getVersionCode();                                                               //当前版本
         if (netVersion > currentVersion || localVersion > currentVersion) {

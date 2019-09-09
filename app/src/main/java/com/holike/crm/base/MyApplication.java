@@ -19,6 +19,7 @@ import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.holike.crm.BuildConfig;
 import com.holike.crm.R;
 import com.holike.crm.helper.MyLifecycleHelper;
+import com.liulishuo.filedownloader.FileDownloader;
 import com.scwang.smartrefresh.header.WaterDropHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -107,6 +108,7 @@ public class MyApplication extends Application {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
+        FileDownloader.setupOnApplicationOnCreate(this);
 //        SophixManager.getInstance().queryAndLoadNewPatch();
         initBugly();
     }
@@ -132,6 +134,10 @@ public class MyApplication extends Application {
         DisplayMetrics metrics = this.getResources().getDisplayMetrics();
         screenWidth = metrics.widthPixels;
         screenHeight = metrics.heightPixels;
+    }
+
+    public Activity getTopActivity() {
+        return lifecycleHelper.getTopActivity();
     }
 
     /**

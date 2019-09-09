@@ -13,7 +13,9 @@
     <string name="login_password">密码</string>
     <string name="login_password_et">请输入密码</string>
     <string name="login_check_account">查询账号</string>
-
+    <string name="version_update_notification_wait">正在更新…</string>
+    <string name="version_update_pause">下载已暂停，点击继续！</string>
+    <string name="version_update_error">下载失败，请点击重试！</string>
     <!--查询账号-->
     <string name="checkAccount_title">查询账号</string>
     <string name="checkAccount_oldDealers">旧编号</string>

@@ -30,7 +30,7 @@ public class CustomerDetailModel implements BaseModel {
         Map<String, String> header = new HashMap<>();
         header.put(Constants.USER_ID, SharedPreferencesUtils.getString(Constants.USER_ID, ""));
         header.put(Constants.COOKIE, SharedPreferencesUtils.getString(Constants.COOKIE));
-        MyHttpClient.post(UrlPath.URL_COMSTOMER_INFO, header, params, new RequestCallBack<CustomerDetailBean>() {
+        MyHttpClient.postByTimeout(UrlPath.URL_COMSTOMER_INFO, header, params, 60, new RequestCallBack<CustomerDetailBean>() {
             @Override
             public void onFailed(String result) {
                 listener.failed(result);

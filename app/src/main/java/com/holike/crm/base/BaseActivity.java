@@ -39,9 +39,11 @@ import android.widget.Toast;
 import com.holike.crm.R;
 import com.holike.crm.customView.AppToastCompat;
 import com.holike.crm.customView.CompatToast;
+import com.holike.crm.customView.TitleBar;
 import com.holike.crm.dialog.LoadingDialog;
 import com.holike.crm.dialog.SimpleDialog;
 import com.holike.crm.helper.BackHandlerHelper;
+import com.holike.crm.service.VersionUpdateService;
 import com.holike.crm.util.CheckUtils;
 import com.holike.crm.util.CopyUtil;
 import com.holike.crm.util.LogCat;
@@ -129,12 +131,12 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
     protected abstract int setContentViewId();
 
     @Nullable
-    protected Toolbar getToolbar() {
+    protected TitleBar getToolbar() {
         return findViewById(R.id.app_toolbar);
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = getToolbar();
+        TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             toolbar.setNavigationOnClickListener(view -> onBackPressed());
         }
@@ -165,7 +167,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
      * 设置右边菜单文字
      */
     protected void setRightMenu(final String text) {
-        final Toolbar toolbar = getToolbar();
+        final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
             if (view != null) {
@@ -180,7 +182,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
     }
 
     protected void setOptionsMenu(@MenuRes int menuId) {
-        final Toolbar toolbar = getToolbar();
+        final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
             if (view != null) {
@@ -195,7 +197,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
     }
 
     @Nullable
-    protected View getMenuLayout(Toolbar toolbar) {
+    protected View getMenuLayout(TitleBar toolbar) {
         return toolbar.findViewById(R.id.fl_menu_layout);
     }
 
@@ -207,7 +209,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
      * 设置右边菜单文字
      */
     protected void setRightMsg(final boolean isNewMsg) {
-        final Toolbar toolbar = getToolbar();
+        final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
             if (view != null) {
@@ -255,13 +257,14 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
      * 设置标题
      */
     public void setTitle(CharSequence title) {
-        TextView tvTitle = findViewById(R.id.tv_title);
-        if (tvTitle != null) {
-            tvTitle.setText(title);
-        }
-        Toolbar toolbar = getToolbar();
+//        TextView tvTitle = findViewById(R.id.tv_title);
+//        if (tvTitle != null) {
+//            tvTitle.setText(title);
+//        }
+        TitleBar toolbar = getToolbar();
         if (toolbar != null) {
-            toolbar.setTitle(title);
+            ((TextView) toolbar.findViewById(R.id.tv_appbar_title)).setText(title);
+//            toolbar.setTitle(title);
         }
     }
 
@@ -276,7 +279,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
      * 设置搜索栏
      */
     protected EditText setSearchBar(CharSequence hint) {
-        Toolbar toolbar = getToolbar();
+        TitleBar toolbar = getToolbar();
         if (toolbar == null) return null;
         return ToolbarHelper.addSearchContainer(toolbar, hint, (searchView, actionId, event) -> doSearch());
     }
@@ -292,7 +295,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
      * 设置标题背景
      */
     protected void setTitleBg(int resId) {
-        Toolbar toolbar = getToolbar();
+        TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             toolbar.setBackgroundResource(resId);
         }
@@ -522,8 +525,13 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (REQUEST_CODE == requestCode) {
-            onActivityResult(resultCode, data);
+        if (requestCode == VersionUpdateService.REQUEST_CODE_APP_INSTALL) {
+            Intent intent = new Intent(VersionUpdateService.ACTION_INSTALL);
+            sendBroadcast(intent);
+        } else {
+            if (requestCode == REQUEST_CODE) {
+                onActivityResult(resultCode, data);
+            }
         }
     }
 

@@ -2,9 +2,11 @@ package com.holike.crm.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -63,7 +65,7 @@ public class UpdateAppDialog extends Dialog {
                 }
             });
             getWindow().setContentView(contentView);
-            int width = (DensityUtil.getScreenWidth(getContext()) - DensityUtil.dp2px(getContext().getResources().getDimension(R.dimen.dp_48)));
+            int width = DensityUtil.getScreenWidth(getContext()) - (2 * getContext().getResources().getDimensionPixelSize(R.dimen.dp_48));
             getWindow().setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT);
             getWindow().setWindowAnimations(R.style.Dialog_Anim);
             getWindow().setBackgroundDrawableResource(R.drawable.bg_corners_white_5dp);

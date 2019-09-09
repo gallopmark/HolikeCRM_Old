@@ -72,7 +72,7 @@ public class BootingActivity extends BaseActivity<BootingPresenter, BootingView>
     public void startSkip() {
         mHandler.removeCallbacksAndMessages(null);
         Intent intent;
-        if (SharedPreferencesUtils.getString(Constants.CLI_ID) == null) {
+        if (TextUtils.isEmpty(SharedPreferencesUtils.getUserId())) {
             intent = new Intent(this, LoginActivity.class);
         } else {
             intent = new Intent(this, MainActivity.class);

@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 public class CustomerStateListModel implements BaseModel {
-    public void getDate(String statusMove, String pageNo,String pageSize,final GetDateListener listener) {
+    public void getDate(String statusMove, String pageNo, String pageSize, final GetDateListener listener) {
         Map<String, String> params = new HashMap<>();
         params.put("statusMove", statusMove);
         params.put("pageNo", pageNo);
@@ -26,7 +26,7 @@ public class CustomerStateListModel implements BaseModel {
         header.put(Constants.USER_ID, SharedPreferencesUtils.getString(Constants.USER_ID, ""));
         header.put(Constants.CLI_ID, SharedPreferencesUtils.getString(Constants.CLI_ID, ""));
         header.put(Constants.COOKIE, SharedPreferencesUtils.getString(Constants.COOKIE));
-        MyHttpClient.post(UrlPath.URL_CUSTOMER_STATE_LIST, header, params, new RequestCallBack<CustomerStateListBean>() {
+        MyHttpClient.postByTimeout(UrlPath.URL_CUSTOMER_STATE_LIST, header, params, 60, new RequestCallBack<CustomerStateListBean>() {
             @Override
             public void onFailed(String result) {
                 listener.failed(result);

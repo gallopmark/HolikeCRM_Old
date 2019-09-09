@@ -41,7 +41,17 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup"
         tools:targetApi="n">
-
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            android:multiprocess="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"
+                tools:replace="android:resource" />
+        </provider>
         <!-- <meta-data
              android:name="com.taobao.android.hotfix.IDSECRET"
              android:value="" />
@@ -93,7 +103,7 @@
         <activity android:name=".activity.analyze.NetActivity" />
         <activity android:name=".activity.analyze.MonthPkActivity" />
         <activity android:name=".activity.analyze.OnlineAttractReportActivity" />
-        <activity android:name=".activity.analyze.WoodenDoorActivity"/>
+        <activity android:name=".activity.analyze.WoodenDoorActivity" />
         <activity
             android:name=".activity.homepage.AddCustomerActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -149,6 +159,8 @@
             android:name=".activity.employee.ResetPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <service android:name=".service.VersionUpdateService" />
 
         <!--极光-->
         <service

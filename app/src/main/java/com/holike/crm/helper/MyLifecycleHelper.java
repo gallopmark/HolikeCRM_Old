@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.lang.ref.WeakReference;
+import java.util.LinkedList;
 
 /**
  * Created by wqj on 2017/10/19.
@@ -19,42 +23,48 @@ public class MyLifecycleHelper implements Application.ActivityLifecycleCallbacks
     private int stopped;
     private int destroyed;
 
+    private LinkedList<Activity> mActivityCache;
     private WeakReference<Activity> activityWeakReference;
 
-
-    @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        ++created;
+    public MyLifecycleHelper() {
+        mActivityCache = new LinkedList<>();
     }
 
     @Override
-    public void onActivityStarted(Activity activity) {
+    public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
+        ++created;
+        mActivityCache.add(activity);
+    }
+
+    @Override
+    public void onActivityStarted(@NonNull Activity activity) {
         ++started;
     }
 
     @Override
-    public void onActivityResumed(Activity activity) {
-        activityWeakReference = new WeakReference<Activity>(activity);
+    public void onActivityResumed(@NonNull Activity activity) {
+        activityWeakReference = new WeakReference<>(activity);
         ++resumed;
     }
 
     @Override
-    public void onActivityPaused(Activity activity) {
+    public void onActivityPaused(@NonNull Activity activity) {
         ++paused;
     }
 
     @Override
-    public void onActivityStopped(Activity activity) {
+    public void onActivityStopped(@NonNull Activity activity) {
         ++stopped;
     }
 
     @Override
-    public void onActivityDestroyed(Activity activity) {
+    public void onActivityDestroyed(@NonNull Activity activity) {
         ++destroyed;
+        mActivityCache.remove(activity);
     }
 
     @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
     }
 
     public boolean isApplicationVisible() {
@@ -71,14 +81,20 @@ public class MyLifecycleHelper implements Application.ActivityLifecycleCallbacks
 
     /**
      * 获取当前打开的界面
-     *
-     * @return
      */
+    @Nullable
     public Activity getCurrentActivity() {
         Activity currentActivity = null;
         if (activityWeakReference != null) {
             currentActivity = activityWeakReference.get();
         }
         return currentActivity;
+    }
+
+    /*获取栈顶activity*/
+    @Nullable
+    public Activity getTopActivity() {
+        if (mActivityCache.size() == 0) return null;
+        return mActivityCache.getLast();
     }
 }

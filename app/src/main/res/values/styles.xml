@@ -327,6 +327,22 @@
         <item name="android:layout_height">@dimen/dp_44</item>
     </style>
 
+    <style name="TitleBarTitleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">@dimen/dp_8</item>
+        <item name="android:layout_marginRight">@dimen/dp_8</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/textColor4</item>
+        <item name="android:textSize">@dimen/textSize_18</item>
+    </style>
+
+    <style name="TitleBarTitleStyle2" parent="TitleBarTitleStyle">
+        <item name="android:textColor">@color/color_while</item>
+    </style>
     <!-- toolbar标题文字大小 -->
     <style name="AppToolbarTitleTextStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/textSize_18</item>
@@ -343,12 +359,5 @@
     <style name="AppToastStyle" parent="@android:style/Animation.Toast">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
-    </style>
-
-    <style name="ImageTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/stylePrimary</item>
-        <item name="colorPrimaryDark">@color/stylePrimaryDark</item>
-        <item name="colorAccent">@color/styleAccent</item>
     </style>
 </resources>

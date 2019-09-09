@@ -101,4 +101,9 @@ public class SharedPreferencesUtils {
     public static boolean getBoolean(String key) {
         return getBoolean(key, false);
     }
+
+    /*当前登录的userId*/
+    public static String getUserId() {
+        return getString(Constants.USER_ID);
+    }
 }

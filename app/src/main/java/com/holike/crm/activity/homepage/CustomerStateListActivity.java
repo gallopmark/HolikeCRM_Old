@@ -198,4 +198,9 @@ public class CustomerStateListActivity extends MyFragmentActivity<CustomerStateL
             showShortToast(failed);
         }
     }
+
+    @Override
+    public void reload() {
+        loadData(true);
+    }
 }

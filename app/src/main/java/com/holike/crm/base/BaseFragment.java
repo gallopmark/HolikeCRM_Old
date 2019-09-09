@@ -32,6 +32,7 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.holike.crm.R;
 import com.holike.crm.customView.AppToastCompat;
 import com.holike.crm.customView.CompatToast;
+import com.holike.crm.customView.TitleBar;
 import com.holike.crm.fragment.FragmentBackHandler;
 import com.holike.crm.util.CheckUtils;
 import com.holike.crm.util.CopyUtil;
@@ -114,12 +115,12 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
     }
 
     @Nullable
-    protected Toolbar getToolbar() {
+    protected TitleBar getToolbar() {
         return mContentView.findViewById(R.id.app_toolbar);
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = getToolbar();
+        TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             toolbar.setNavigationOnClickListener(view -> {
                 KeyBoardUtil.hideKeyboard(view);
@@ -138,9 +139,10 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
 //        if (tvTitle != null) {
 //            tvTitle.setText(title);
 //        }
-        Toolbar toolbar = getToolbar();
+        TitleBar toolbar = getToolbar();
         if (toolbar != null) {
-            toolbar.setTitle(title);
+            ((TextView) toolbar.findViewById(R.id.tv_appbar_title)).setText(title);
+//            toolbar.setTitle(title);
         }
     }
 
@@ -187,7 +189,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
 //        if (flTitle != null) {
 //            flTitle.setBackgroundResource(resId);
 //        }
-        Toolbar toolbar = getToolbar();
+        TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             toolbar.setBackgroundResource(resId);
         }
@@ -241,7 +243,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
 //            });
 //        }
 //        return editText;
-        Toolbar toolbar = getToolbar();
+        TitleBar toolbar = getToolbar();
         if (toolbar == null) return null;
         return ToolbarHelper.addSearchContainer(toolbar, hint, (searchView, actionId, event) -> doSearch());
     }
@@ -269,7 +271,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
     }
 
     public void setRightMenu(final String text, @Nullable View.OnClickListener listener) {
-        final Toolbar toolbar = getToolbar();
+        final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
             if (view != null) {
@@ -287,7 +289,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
 
     /*隐藏右边菜单栏*/
     public void hideRightMenu() {
-        final Toolbar toolbar = getToolbar();
+        final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
             if (view != null) {
@@ -297,7 +299,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
     }
 
     public void setOptionsMenu(@MenuRes int menuId) {
-        final Toolbar toolbar = getToolbar();
+        final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
             if (view != null) {
@@ -312,7 +314,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
     }
 
     @Nullable
-    private View getMenuLayout(Toolbar toolbar) {
+    private View getMenuLayout(TitleBar toolbar) {
         return toolbar.findViewById(R.id.fl_menu_layout);
     }
 
@@ -320,7 +322,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
      * 设置右边菜单图标
      */
     public void setRightMenuMsg(final boolean isNewMsg) {
-        final Toolbar toolbar = getToolbar();
+        final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
             if (view != null) {

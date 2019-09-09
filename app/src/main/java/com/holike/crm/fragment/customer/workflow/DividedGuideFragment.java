@@ -37,10 +37,6 @@ public class DividedGuideFragment extends WorkflowFragment implements WorkflowVi
     TextView tvTime;
     @BindView(R.id.statusView)
     View statusView;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.tv_left)
-    TextView tvLeft;
     @BindView(R.id.tv_divide_guide_useful)
     TextView tvUseful;
     @BindView(R.id.ll_divide_guide_useful)
