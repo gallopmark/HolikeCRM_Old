@@ -1,6 +1,5 @@
 package com.holike.crm.service;
 
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,7 +11,6 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -184,15 +182,7 @@ public class VersionUpdateService extends Service {
             if (canInstallApk()) {
                 installApk(apkPath);
             } else {
-                Activity activity = MyApplication.getInstance().getTopActivity();
-                if (activity != null) {
-                    //注意这个是8.0新API
-                    try {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
-                        activity.startActivityForResult(intent, REQUEST_CODE_APP_INSTALL);
-                    } catch (Exception ignored) {
-                    }
-                }
+                AppUtils.startUnknownAppSourceSetting(REQUEST_CODE_APP_INSTALL);
             }
         } else {
             installApk(apkPath);
