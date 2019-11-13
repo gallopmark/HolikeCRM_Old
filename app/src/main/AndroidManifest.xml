@@ -159,6 +159,9 @@
             android:name=".activity.employee.ResetPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".activity.analyze.CustomerSatisfactionActivity" />
+        <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.homepage.ScanByPhoneActivity" />
 
         <service android:name=".service.VersionUpdateService" />
 

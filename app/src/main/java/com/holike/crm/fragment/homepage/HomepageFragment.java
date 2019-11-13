@@ -292,6 +292,7 @@ public class HomepageFragment extends BaseFragment<HomePagePresenter, HomePageVi
      */
     @Override
     public void getHomepageDataFailed(String failed) {
+        srl.finishRefresh();
         dismissLoading();
         dealWithFailed(failed, true);
         llMain.setVisibility(View.INVISIBLE);

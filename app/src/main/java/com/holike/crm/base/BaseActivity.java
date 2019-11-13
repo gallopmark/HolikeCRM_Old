@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,6 @@ import android.widget.Toast;
 import com.holike.crm.R;
 import com.holike.crm.customView.AppToastCompat;
 import com.holike.crm.customView.CompatToast;
-import com.holike.crm.customView.TitleBar;
 import com.holike.crm.dialog.LoadingDialog;
 import com.holike.crm.dialog.SimpleDialog;
 import com.holike.crm.helper.BackHandlerHelper;
@@ -56,6 +56,7 @@ import java.util.Map;
 import java.util.Random;
 
 import butterknife.ButterKnife;
+import galloped.xcode.widget.TitleBar;
 
 public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> extends AppCompatActivity {
     public final int REQUEST_CODE = new Random().nextInt(65536);
@@ -170,14 +171,15 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
         final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
-            if (view != null) {
-                view.setVisibility(View.VISIBLE);
+            if (view == null) {
+                LayoutInflater.from(this).inflate(R.layout.include_menu_layout, toolbar, true);
             }
             TextView tvMenu = toolbar.findViewById(R.id.tv_menu);
-            if (tvMenu != null) {
-                tvMenu.setText(text);
-                tvMenu.setOnClickListener(v -> clickRightMenu());
+            tvMenu.setText(text);
+            if (toolbar.getTag() != null) {
+                tvMenu.setTextColor(ContextCompat.getColor(this, R.color.color_while));
             }
+            tvMenu.setOnClickListener(v -> clickRightMenu());
         }
     }
 
@@ -186,7 +188,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
             if (view != null) {
-                view.setVisibility(View.GONE);
+                toolbar.removeView(view);
             }
             ToolbarHelper.inflateMenu(toolbar, menuId);
             toolbar.setOnMenuItemClickListener(item -> {
@@ -211,18 +213,11 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
     protected void setRightMsg(final boolean isNewMsg) {
         final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
-            View view = getMenuLayout(toolbar);
-            if (view != null) {
-                view.setVisibility(View.VISIBLE);
-            }
+            setRightMenu(getString(R.string.message_title));
             ImageView ivNewMsg = toolbar.findViewById(R.id.iv_new_tips);
             if (ivNewMsg != null) {
                 ivNewMsg.setVisibility(isNewMsg ? View.VISIBLE : View.GONE);
             }
-            TextView tvMenu = toolbar.findViewById(R.id.tv_menu);
-            String text = getString(R.string.message_title);
-            tvMenu.setText(text);
-            tvMenu.setOnClickListener(v -> clickRightMenu());
         }
     }
 
@@ -263,8 +258,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
 //        }
         TitleBar toolbar = getToolbar();
         if (toolbar != null) {
-            ((TextView) toolbar.findViewById(R.id.tv_appbar_title)).setText(title);
-//            toolbar.setTitle(title);
+            toolbar.setTitle(title);
         }
     }
 
@@ -444,7 +438,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
             }
             transaction.remove(fragmentList.get(position)).commitAllowingStateLoss();
             fragmentList.remove(position);
-            ((MyFragment) fragmentList.get(position - 1)).onFinishResult(requestCode, resultCode, result);
+            ((BaseFragment<?,?>) fragmentList.get(position - 1)).onFinishResult(requestCode, resultCode, result);
         } else {
             finish();
         }

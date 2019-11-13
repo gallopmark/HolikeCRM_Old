@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <View
@@ -9,16 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <com.holike.crm.customView.TitleBar
-        android:id="@+id/app_toolbar"
+    <galloped.xcode.widget.TitleBar
+        android:id="@id/app_toolbar"
+        app:tb_titleTextColor="@color/textColor4"
+        app:tb_titleTextSize="@dimen/textSize_18"
+        app:tb_titleTextStyle="bold"
         style="@style/AppToolBarStyle">
 
-        <TextView
-            android:id="@+id/tv_appbar_title"
-            style="@style/TitleBarTitleStyle" />
-
-        <include layout="@layout/include_menu_layout" />
-    </com.holike.crm.customView.TitleBar>
+      <!--  <include layout="@layout/include_menu_layout" />-->
+    </galloped.xcode.widget.TitleBar>
 
     <!--<RelativeLayout
         android:id="@+id/fl_fragment_title_bar"

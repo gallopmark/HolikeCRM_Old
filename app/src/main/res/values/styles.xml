@@ -360,4 +360,21 @@
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
+
+    <style name="Scrollable_TextViewStyle2">
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:maxLines">2</item>-->
+        <item name="android:paddingTop">@dimen/dp_10</item>
+        <item name="android:paddingBottom">@dimen/dp_10</item>
+        <item name="android:paddingLeft">@dimen/dp_2</item>
+        <item name="android:paddingRight">@dimen/dp_2</item>
+        <item name="android:textSize">@dimen/textSize_12</item>
+        <item name="android:textColor">@color/textColor4</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@null</item>
+    </style>
 </resources>

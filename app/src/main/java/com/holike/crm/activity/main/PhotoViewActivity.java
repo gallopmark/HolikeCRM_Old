@@ -1,31 +1,42 @@
 package com.holike.crm.activity.main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import androidx.viewpager.widget.ViewPager;
+import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.github.chrisbanes.photoview.PhotoView;
 import com.holike.crm.R;
-import com.holike.crm.adapter.MyImageAdapter;
 import com.holike.crm.base.BaseActivity;
 import com.holike.crm.base.BasePresenter;
 import com.holike.crm.customView.PhotoViewPager;
 import com.holike.crm.util.Constants;
+import com.holike.crm.util.GlideUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * 图片查看器
  */
-public class PhotoViewActivity extends BaseActivity implements MyImageAdapter.PotoClickListener {
+public class PhotoViewActivity extends BaseActivity {
 
-    private PhotoViewPager mViewPager;
-    private int currentPosition;
-    private MyImageAdapter adapter;
-    private TextView mTvImageCount;
-    private List<String> Urls;
+    @BindView(R.id.view_pager_photo)
+    PhotoViewPager mViewPager;
+    @BindView(R.id.tv_image_count)
+    TextView mTvImageCount;
+    private static List<String> mImages;
 
     @Override
     protected BasePresenter attachPresenter() {
@@ -39,54 +50,109 @@ public class PhotoViewActivity extends BaseActivity implements MyImageAdapter.Po
 
     @Override
     protected void init() {
-        initView();
-        initData();
-    }
-
-    private void initView() {
-        mViewPager = (PhotoViewPager) findViewById(R.id.view_pager_photo);
-        mTvImageCount = (TextView) findViewById(R.id.tv_image_count);
-    }
-
-    /**
-     * 初始化图片
-     */
-    private void initData() {
+//        setStatusBarColor(R.color.color_black);
         Intent intent = getIntent();
-        currentPosition = intent.getIntExtra(Constants.PHOTO_VIEW_POSITION, 0);
-        Urls = intent.getStringArrayListExtra(Constants.PHONE_VIEW_IMAGES);
-        Urls.remove("add");
-
-        adapter = new MyImageAdapter(Urls, this, this);
-        mViewPager.setAdapter(adapter);
+        int currentPosition = intent.getIntExtra(Constants.PHOTO_VIEW_POSITION, 0);
+        final List<String> images = new ArrayList<>();
+        if (mImages != null && !mImages.isEmpty()) {
+            images.addAll(mImages);
+            release();
+        }
+        final int imageSize = images.size();
+        mViewPager.setAdapter(new ImageViewerAdapter(images));
         mViewPager.setCurrentItem(currentPosition, false);
-        mTvImageCount.setText(currentPosition + 1 + "/" + Urls.size());
+        setCurrentPosition(currentPosition, imageSize);
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                currentPosition = position;
-                mTvImageCount.setText(currentPosition + 1 + "/" + Urls.size());
+                setCurrentPosition(position, imageSize);
             }
         });
+        findViewById(R.id.fl_container).setOnClickListener(view -> finish());
+    }
+
+    private void setCurrentPosition(int position, int size) {
+        String text = (position + 1) + "/" + size;
+        mTvImageCount.setText(text);
     }
 
     /**
      * 查看图片
-     *
-     * @param activity
-     * @param currentPosition
-     * @param Urls
      */
-    public static void openImage(Activity activity, int currentPosition, List<String> Urls) {
+    public static void openImage(Context context, int currentPosition, @NonNull List<String> images) {
+        Intent intent = new Intent(context, PhotoViewActivity.class);
+        intent.putExtra(Constants.PHOTO_VIEW_POSITION, currentPosition);
+        mImages = new ArrayList<>(images);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 查看图片
+     */
+    public static void openImage(Activity activity, int currentPosition, @NonNull List<String> images) {
         Intent intent = new Intent(activity, PhotoViewActivity.class);
         intent.putExtra(Constants.PHOTO_VIEW_POSITION, currentPosition);
-        intent.putStringArrayListExtra(Constants.PHONE_VIEW_IMAGES, (ArrayList<String>) Urls);
+        mImages = new ArrayList<>(images);
         activity.startActivity(intent);
     }
 
+    public static void openImage(Fragment fragment, int currentPosition, @NonNull List<String> images) {
+        if (fragment.getActivity() == null) return;
+        Intent intent = new Intent(fragment.getContext(), PhotoViewActivity.class);
+        intent.putExtra(Constants.PHOTO_VIEW_POSITION, currentPosition);
+        mImages = new ArrayList<>(images);
+        fragment.startActivity(intent);
+    }
+
     @Override
-    public void onPhotoClick(View v) {
-        finish();
+    protected void onDestroy() {
+        release();
+        super.onDestroy();
+    }
+
+    private void release() {
+        if (mImages != null) {
+            mImages.clear();
+            mImages = null;
+        }
+    }
+
+    class ImageViewerAdapter extends PagerAdapter {
+        private List<String> mImages;
+
+        ImageViewerAdapter(List<String> images) {
+            this.mImages = images;
+        }
+
+        @Override
+        public int getCount() {
+            return mImages.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+            return view == object;
+        }
+
+        @NonNull
+        @Override
+        public Object instantiateItem(@NonNull ViewGroup container, int position) {
+            String url = mImages.get(position);
+            PhotoView photoView = new PhotoView(PhotoViewActivity.this);
+            GlideUtils.imagePreview(PhotoViewActivity.this,url,photoView);
+            container.addView(photoView);
+            photoView.setOnClickListener(v -> finish());
+            return photoView;
+        }
+
+        @Override
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+            container.removeView((View) object);
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            return POSITION_NONE;
+        }
     }
 }

@@ -836,4 +836,21 @@
     <string name="followup_installation_area">安装面积：</string>
     <string name="followup_installation_end_date">安装完成时间：</string>
     <string name="customer_operate_repeat_tips">您已填写过，需要撤销后才能重新填写</string>
+
+    <string name="customer_satisfaction_tips">客户满意度</string>
+    <string name="customer_telephone_tips">客户电话：</string>
+
+    <string name="customer_satisfaction_service">服务满意度：</string>
+    <string name="customer_satisfaction_design">设计满意度：</string>
+    <string name="customer_satisfaction_delivery">配送满意度：</string>
+    <string name="customer_satisfaction_install">安装满意度：</string>
+    <string name="tips_evaluation_time">评价时间：</string>
+    <string name="settings">设置</string>
+    <string name="tips_allow_customers_check_orders">允许客户查询订单</string>
+    <string name="tips_check_orders_under">关闭后，客户将不能通过舒适好家小程序查询订单</string>
+    <string name="division">划分</string>
+    <string name="customer_satisfaction_tab1" tools:ignore="TypographyDashes">服务满意度(1-5星)</string>
+    <string name="customer_satisfaction_tab2" tools:ignore="TypographyDashes">设计满意度(1-5星)</string>
+    <string name="customer_satisfaction_tab3" tools:ignore="TypographyDashes">配送满意度(1-5星)</string>
+    <string name="customer_satisfaction_tab4" tools:ignore="TypographyDashes">安装满意度(1-5星)</string>
 </resources>

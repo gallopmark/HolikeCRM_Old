@@ -269,4 +269,9 @@ public class UrlPath {
 
     /*修改密码*/
     public static final String URL_EMPLOYEE_EDIT_PASSWORD = HOST + "/member/modifyUserPassword";
+
+    /*评价报表*/
+    public static final String URL_EVALUATION_REPORT = HOST + "/member/evaluateList";
+    /*新增编辑规则*/
+    public static final String URL_SETTINGS_RULE = HOST + "/member/editRule";
 }

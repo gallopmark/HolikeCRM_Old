@@ -21,7 +21,7 @@ final class PermissionHelper {
         }
         if (allGranted) {
             if (requestCallback != null) {
-                requestCallback.onGranted(requestCode, permissions);
+                requestCallback.onGranted(requestCode, permissions,grantResults);
             }
         } else {
             boolean isProhibit = false;

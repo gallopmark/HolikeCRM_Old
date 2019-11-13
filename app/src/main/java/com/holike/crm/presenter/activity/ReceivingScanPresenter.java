@@ -100,9 +100,13 @@ public class ReceivingScanPresenter extends BasePresenter<ReceivingScanView, Rec
         }
     }
 
-    public void getResult(List<EventQRCodeScanResult> results) {
-        if (getView() != null)
-            getView().onAddResultSuccess(results, results.size() > 0);
+    @SuppressWarnings("unchecked")
+    public void getResult(Object obj) {
+        if (obj != null) {
+            List<EventQRCodeScanResult> results = (List<EventQRCodeScanResult>) obj;
+            if (getView() != null)
+                getView().onAddResultSuccess(results, results.size() > 0);
+        }
     }
 
 

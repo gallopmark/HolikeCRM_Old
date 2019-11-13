@@ -1,7 +1,6 @@
 package com.holike.crm.fragment.analyze;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import com.grallopmark.tablayout.CommonTabLayout;
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
+import galloped.xcode.widget.TitleBar;
 
 /**
  * Created by wqj on 2018/4/11.
@@ -31,8 +30,10 @@ import butterknife.OnClick;
  */
 
 public class WeekReportFragment extends MyFragment<WeekReportPresenter, WeekReportView> implements WeekReportView {
-    @BindView(R.id.tv_customer_deposit_report_title)
-    TextView tvTitle;
+//    @BindView(R.id.tv_customer_deposit_report_title)
+//    TextView tvTitle;
+    @BindView(R.id.titleBar)
+    TitleBar titleBar;
     @BindView(R.id.tv_customer_deposit_report_content)
     TextView tvContent;
     @BindView(R.id.tv_customer_deposit_report_data)
@@ -62,16 +63,18 @@ public class WeekReportFragment extends MyFragment<WeekReportPresenter, WeekRepo
     protected void init() {
         super.init();
         setStatusBar();
+        titleBar.setNavigationOnClickListener(view -> finishFragment());
         initTab();
-        setLeft(getString(R.string.report_title));
+//        setLeft(getString(R.string.report_title));
         Bundle bundle = getArguments();
         if (bundle != null) {
             timeType = bundle.getInt(Constants.TYPE);
             time = bundle.getString(Constants.TIME);
             money = bundle.getString(Constants.MONEY);
-        } else {
-            setLeft(getString(R.string.report_title));
         }
+//        else {
+//            setLeft(getString(R.string.report_title));
+//        }
         if (money == null) {
             mPresenter.getDepositList(String.valueOf(timeType));
             showLoading();
@@ -88,8 +91,8 @@ public class WeekReportFragment extends MyFragment<WeekReportPresenter, WeekRepo
 
 
     private void initTab() {
-        mTabEntities.add(new TabEntity("订单数", 0, 0));
-        mTabEntities.add(new TabEntity("订金额", 0, 0));
+        mTabEntities.add(new TabEntity("订单数"));
+        mTabEntities.add(new TabEntity("订金额"));
         tabOrderType.setTabData(mTabEntities);
         tabOrderType.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
@@ -158,7 +161,7 @@ public class WeekReportFragment extends MyFragment<WeekReportPresenter, WeekRepo
     public void getDepositListSuccess(WeekDepositBean weekDepositBean) {
         dismissLoading();
         this.weekDepositBean = weekDepositBean;
-        tvTitle.setText(getString(R.string.report_item1_title));
+//        tvTitle.setText(getString(R.string.report_item1_title));
         tvData.setText("¥" + weekDepositBean.getTotalMoney());
         weekReportChartView.setWeekDepositBeans(weekDepositBean.getMoneyData(), orderType);
     }
@@ -178,7 +181,7 @@ public class WeekReportFragment extends MyFragment<WeekReportPresenter, WeekRepo
     @Override
     public void getDepositInfoSuccess(List<DayDepositBean> dayDepositBeans, String time, String money) {
         dismissLoading();
-        tvTitle.setText(getString(R.string.customer_deposit_report_title_info));
+//        tvTitle.setText(getString(R.string.customer_deposit_report_title_info));
         tvData.setText("¥" + money);
         weekReportChartView.setDayDepositBeans(dayDepositBeans);
     }
@@ -192,12 +195,12 @@ public class WeekReportFragment extends MyFragment<WeekReportPresenter, WeekRepo
         showShortToast(failed);
     }
 
-    @OnClick({R.id.ll_back})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finishFragment();
-                break;
-        }
-    }
+//    @OnClick({R.id.ll_back})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R.id.ll_back:
+//                finishFragment();
+//                break;
+//        }
+//    }
 }

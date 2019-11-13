@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.provider.Settings;
@@ -32,7 +33,6 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.holike.crm.R;
 import com.holike.crm.customView.AppToastCompat;
 import com.holike.crm.customView.CompatToast;
-import com.holike.crm.customView.TitleBar;
 import com.holike.crm.fragment.FragmentBackHandler;
 import com.holike.crm.util.CheckUtils;
 import com.holike.crm.util.CopyUtil;
@@ -48,6 +48,7 @@ import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import galloped.xcode.widget.TitleBar;
 
 /**
  * Created by wqj on 2017/9/20.
@@ -141,8 +142,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
 //        }
         TitleBar toolbar = getToolbar();
         if (toolbar != null) {
-            ((TextView) toolbar.findViewById(R.id.tv_appbar_title)).setText(title);
-//            toolbar.setTitle(title);
+            toolbar.setTitle(title);
         }
     }
 
@@ -274,11 +274,14 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
         final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
-            if (view != null) {
-                view.setVisibility(View.VISIBLE);
+            if (view == null) {
+                LayoutInflater.from(mContext).inflate(R.layout.include_menu_layout, toolbar, true);
             }
             TextView tvMenu = toolbar.findViewById(R.id.tv_menu);
             tvMenu.setText(text);
+            if (toolbar.getTag() != null) {
+                tvMenu.setTextColor(ContextCompat.getColor(mContext, R.color.color_while));
+            }
             if (listener != null) {
                 tvMenu.setOnClickListener(listener);
             } else {
@@ -293,7 +296,8 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
             if (view != null) {
-                view.setVisibility(View.INVISIBLE);
+                toolbar.removeView(view);
+//                view.setVisibility(View.INVISIBLE);
             }
         }
     }
@@ -303,7 +307,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
         if (toolbar != null) {
             View view = getMenuLayout(toolbar);
             if (view != null) {
-                view.setVisibility(View.GONE);
+                toolbar.removeView(view);
             }
             ToolbarHelper.inflateMenu(toolbar, menuId);
             toolbar.setOnMenuItemClickListener(item -> {
@@ -324,18 +328,11 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
     public void setRightMenuMsg(final boolean isNewMsg) {
         final TitleBar toolbar = getToolbar();
         if (toolbar != null) {
-            View view = getMenuLayout(toolbar);
-            if (view != null) {
-                view.setVisibility(View.VISIBLE);
-            }
+            setRightMenu(mContext.getString(R.string.message_title));
             ImageView ivNewMsg = toolbar.findViewById(R.id.iv_new_tips);
             if (ivNewMsg != null) {
                 ivNewMsg.setVisibility(isNewMsg ? View.VISIBLE : View.GONE);
             }
-            TextView tvMenu = toolbar.findViewById(R.id.tv_menu);
-            String text = mContext.getString(R.string.message_title);
-            tvMenu.setText(text);
-            tvMenu.setOnClickListener(v -> clickRightMenu(text, tvMenu));
         }
     }
 
@@ -380,20 +377,32 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
      * 打开fragment
      */
     public void startFragment(Fragment fragment) {
-        if (mContext instanceof MyFragmentActivity) {
-            ((MyFragmentActivity) mContext).startFragment(fragment);
+        if (mContext instanceof BaseActivity) {
+            ((BaseActivity) mContext).startFragment(fragment);
         }
     }
 
     public void startFragment(Fragment fragment, boolean needAnim) {
-        if (mContext instanceof MyFragmentActivity) {
-            ((MyFragmentActivity) mContext).startFragment(null, fragment, needAnim);
+        if (mContext instanceof BaseActivity) {
+            ((BaseActivity) mContext).startFragment(null, fragment, needAnim);
         }
     }
 
     public void startFragment(Map<String, Serializable> params, Fragment fragment) {
-        if (mContext instanceof MyFragmentActivity) {
-            ((MyFragmentActivity) mContext).startFragment(params, fragment);
+        if (mContext instanceof BaseActivity) {
+            ((BaseActivity) mContext).startFragment(params, fragment);
+        }
+    }
+
+    public void startFragment(Fragment fragment, @Nullable Bundle options) {
+        if (mContext instanceof BaseActivity) {
+            ((BaseActivity) mContext).startFragment(fragment, options);
+        }
+    }
+
+    public void startFragment(Fragment fragment, @Nullable Bundle options, boolean needAnimation) {
+        if (mContext instanceof BaseActivity) {
+            ((BaseActivity) mContext).startFragment(fragment, options, needAnimation);
         }
     }
 
@@ -401,13 +410,13 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
      * 关闭fragment
      */
     protected void finishFragment() {
-        if (mContext instanceof MyFragmentActivity)
-            ((MyFragmentActivity) mContext).finishFragment();
+        if (mContext instanceof BaseActivity)
+            ((BaseActivity<?, ?>) mContext).finishFragment();
     }
 
     protected void finishFragment(int requestCode, int resultCode, Map<String, Serializable> result) {
-        if (mContext instanceof MyFragmentActivity)
-            ((MyFragmentActivity) mContext).finishFragment(requestCode, resultCode, result);
+        if (mContext instanceof BaseActivity)
+            ((BaseActivity<?, ?>) mContext).finishFragment(requestCode, resultCode, result);
     }
 
     /**
@@ -415,7 +424,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
      */
     protected void showLoading() {
         if (mContext instanceof BaseActivity)
-            ((BaseActivity) mContext).showLoading();
+            ((BaseActivity<?, ?>) mContext).showLoading();
     }
 
     /**
@@ -443,6 +452,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseView> 
                     selectTime(date)).setType(new boolean[]{true, true, true, false, false, false})
                     .setBgColor(getResources().getColor(R.color.color_while)).build();
         }
+
         if (TextUtils.isEmpty(time) || time.equals("无法显示时间")) {
             pvTime.setDate(Calendar.getInstance());
         } else {

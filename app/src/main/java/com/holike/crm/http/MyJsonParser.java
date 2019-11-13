@@ -377,4 +377,14 @@ public class MyJsonParser {
             return -1;
         }
     }
+
+    public static String getMsgAsString(String json) {
+        if (!has(json, "msg")) return "";
+        try {
+            JsonElement element = getMsgElement(json);
+            return element.isJsonNull() ? "" : element.getAsString();
+        } catch (Exception e) {
+            return "";
+        }
+    }
 }

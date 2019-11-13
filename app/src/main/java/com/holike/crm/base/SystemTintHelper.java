@@ -267,7 +267,7 @@ public class SystemTintHelper {
      *
      * @param view The view.
      */
-    static void addMarginTopEqualStatusBarHeight(Context context, @NonNull View view) {
+    public static void addMarginTopEqualStatusBarHeight(Context context, @NonNull View view) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         layoutParams.setMargins(layoutParams.leftMargin,

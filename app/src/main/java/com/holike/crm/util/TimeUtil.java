@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -125,7 +126,7 @@ public class TimeUtil {
      * @return
      */
     public static Calendar stringToCalendar(String str, String type) {
-        SimpleDateFormat sdf = new SimpleDateFormat(type);
+        SimpleDateFormat sdf = new SimpleDateFormat(type, Locale.getDefault());
         Date date = null;
         try {
             date = sdf.parse(str);
@@ -133,7 +134,8 @@ public class TimeUtil {
             e.printStackTrace();
         }
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        if (date != null)
+            calendar.setTime(date);
         return calendar;
     }
 
@@ -174,6 +176,33 @@ public class TimeUtil {
             calendar.set(Calendar.SECOND, 0);
         }
         time = calendar.getTimeInMillis();
+        return String.valueOf(time > 10000000000L ? time / 1000 : time);
+    }
+
+
+    /*获取月份的第一天*/
+    public static String getFirstDayOfMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, 0);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long time = calendar.getTimeInMillis();
+        return String.valueOf(time > 10000000000L ? time / 1000 : time);
+    }
+
+    /*获取月份的最后一天*/
+    public static String getLastDayOfMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        long time = calendar.getTimeInMillis();
         return String.valueOf(time > 10000000000L ? time / 1000 : time);
     }
 }
